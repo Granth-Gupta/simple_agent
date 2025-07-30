@@ -9,6 +9,7 @@ from typing import Optional
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 
 # Suppress asyncio resource warnings on Windows
 if sys.platform == "win32":
@@ -36,6 +37,16 @@ load_dotenv()
 
 app = FastAPI(title="FirecrawlAgent API")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://simple-agent-frontend-918169486800.us-central1.run.app",
+        "http://127.0.0.1:5000"
+    ],  # restrict to your frontend URL
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class AgentError(Exception):
     """Custom exception for agent-related errors"""
@@ -194,6 +205,20 @@ async def shutdown_event():
 async def read_root():
     return {"message": "Hello, world!"}
 
+@app.get("/tools")
+async def get_tools():
+    global agent_instance
+    if not agent_instance or not agent_instance._initialized:
+        logger.error("Agent is not initialized or ready to serve tools")
+        raise HTTPException(status_code=503, detail="Agent is not ready")
+
+    try:
+        # Return the tool names the agent loaded dynamically
+        tools_list = [tool.name for tool in agent_instance.tools] if agent_instance.tools else []
+        return {"tools": tools_list}
+    except Exception as e:
+        logger.error(f"Error fetching tools list: {e}")
+        raise HTTPException(status_code=500, detail="Failed to retrieve tools")
 
 @app.post("/query")
 async def query_agent(request: QueryRequest):
