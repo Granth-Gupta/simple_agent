@@ -1,3 +1,9 @@
+# Terminal 1: Start the server
+python app.py
+
+# Terminal 2: Run tests (after server shows "AI Agent is ready!")
+python -m pytest test_app.py -v --asyncio-mode=auto
+
 Available Tools - firecrawl_scrape firecrawl_map firecrawl_crawl firecrawl_check_crawl_status firecrawl_search firecrawl_extract firecrawl_deep_research firecrawl_generate_llmstxt
 ------------------------------------------------------------
 

@@ -1,0 +1,24 @@
+$ python -m pytest test_app.py -v --asyncio-mode=auto
+=============================================================== test session starts ===============================================================
+platform win32 -- Python 3.13.5, pytest-8.4.1, pluggy-1.6.0 -- C:\Python313\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend
+configfile: pyproject.toml
+plugins: anyio-4.9.0, langsmith-0.4.4, asyncio-1.0.0
+asyncio: mode=Mode.AUTO, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collected 12 items
+
+test_app.py::TestBackendAPI::test_health_check PASSED                                                                                        [  8%]
+test_app.py::TestBackendAPI::test_tools_endpoint PASSED                                                                                      [ 16%]
+test_app.py::TestBackendAPI::test_chat_empty_message PASSED                                                                                  [ 25%]
+test_app.py::TestBackendAPI::test_chat_whitespace_message PASSED                                                                             [ 33%]
+test_app.py::TestBackendAPI::test_chat_invalid_json PASSED                                                                                   [ 41%]
+test_app.py::TestBackendAPI::test_chat_valid_simple_message PASSED                                                                           [ 50%]
+test_app.py::TestBackendAPI::test_chat_with_history PASSED                                                                                   [ 58%] 
+test_app.py::TestBackendAPI::test_chat_tool_usage PASSED                                                                                     [ 66%] 
+test_app.py::TestBackendAPI::test_chat_long_message PASSED                                                                                   [ 75%] 
+test_app.py::TestBackendAPI::test_server_error_handling PASSED                                                                               [ 83%] 
+test_app.py::TestBackendAPI::test_concurrent_requests PASSED                                                                                 [ 91%] 
+test_app.py::test_debug_server_status PASSED                                                                                                 [100%] 
+
+=============================================================== 12 passed in 34.94s =============================================================== 

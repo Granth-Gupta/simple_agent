@@ -1,13 +1,9 @@
-# Existing dependencies (add these if you don't have them)
+flask
+flask-cors
+python-dotenv
 langchain-google-genai
 langchain-mcp-adapters
 langgraph
 mcp
-python-dotenv
-
-# New web server dependencies
-flask>=2.3.0
-flask-cors>=4.0.0
-
-# Optional: for better production deployment
-gunicorn>=20.1.0
+asyncio
+fastapi

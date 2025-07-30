@@ -11,6 +11,7 @@ import {
   Brain,
   Zap,
   AlertCircle,
+  ChevronDown, // Import ChevronDown icon
 } from "lucide-react";
 // Import Card components from shadcn/ui
 import {
@@ -21,6 +22,12 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+// Import Collapsible components
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 function LandingPage({ onNavigate }) {
   const [messages, setMessages] = useState([
@@ -37,9 +44,25 @@ function LandingPage({ onNavigate }) {
   const [availableTools, setAvailableTools] = useState([]);
   const [toolsLoading, setToolsLoading] = useState(true);
   const [toolsError, setToolsError] = useState(null);
+  const [isToolsCollapsibleOpen, setIsToolsCollapsibleOpen] = useState(false); // State for collapsible
 
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
+
+  // Backend URL - automatically detects environment
+  const getBackendURL = () => {
+    // Check if we're in development (localhost)
+    if (
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1"
+    ) {
+      return "http://localhost:5000";
+    }
+    // Production backend URL
+    return "https://simple-agent-backend.onrender.com";
+  };
+
+  const BACKEND_URL = getBackendURL();
 
   // Function to format AI responses for better readability
   const formatAIResponse = (content) => {
@@ -112,11 +135,13 @@ function LandingPage({ onNavigate }) {
       setToolsLoading(true);
       setToolsError(null);
 
-      const response = await fetch("http://localhost:5000/tools", {
+      const response = await fetch(`${BACKEND_URL}/tools`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
         },
+        // Add timeout for production
+        signal: AbortSignal.timeout(10000), // 10 second timeout
       });
 
       if (!response.ok) {
@@ -180,29 +205,42 @@ function LandingPage({ onNavigate }) {
     setIsLoading(true);
 
     try {
-      // Prepare chat history to send to backend (optional, but good for context)
-      // Filter out only content and type for sending to backend, as IDs/timestamps
-      // are frontend specific. You might need to adjust based on how your Python
-      // agent expects history.
+      // Prepare chat history to send to backend
       const historyToSend = messages.map((msg) => ({
         type: msg.type,
         content: msg.content,
       }));
 
-      const response = await fetch("http://localhost:5000/chat", {
-        // Flask server runs on port 5000
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 180000); // 3 minute timeout
+
+      const response = await fetch(`${BACKEND_URL}/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
           message: userMessage.content,
-          history: historyToSend, // Sending history for context if agent uses it
+          history: historyToSend,
         }),
+        signal: controller.signal,
       });
 
+      clearTimeout(timeoutId);
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        // Handle different HTTP error codes
+        if (response.status === 503) {
+          throw new Error(
+            "Service is starting up. Please wait a moment and try again."
+          );
+        } else if (response.status >= 500) {
+          throw new Error("Server error. Please try again later.");
+        } else if (response.status === 404) {
+          throw new Error("Service not found. Please check the backend URL.");
+        } else {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
       }
 
       const data = await response.json();
@@ -212,16 +250,7 @@ function LandingPage({ onNavigate }) {
 
       // Process tool_calls and tool_outputs if present
       if (data.tool_calls && data.tool_calls.length > 0) {
-        // Here, we're just collecting the tool names that were called
-        // You might want to display more detailed tool call info to the user
         toolsUsedByBot = data.tool_calls.map((tc) => tc.name);
-        // Optionally, you could prepend tool call info to the bot message
-        // For now, we'll just show them in the 'toolsUsed' section.
-      }
-      if (data.tool_outputs && data.tool_outputs.length > 0) {
-        // You might want to display tool outputs as separate messages or append to bot message
-        // For simplicity, we're not adding them as separate messages in this example
-        // but you could iterate and add them if needed.
       }
 
       // Format the AI response for better readability
@@ -238,12 +267,31 @@ function LandingPage({ onNavigate }) {
       setMessages((prev) => [...prev, botResponse]);
     } catch (error) {
       console.error("Error sending message to backend:", error);
+
+      let errorMessage = "⚠️ **Connection Error**\n\n";
+
+      if (error.name === "AbortError") {
+        errorMessage +=
+          "Request timed out. The server might be busy.\n• Try a simpler question\n• Wait a moment and try again\n• Check your internet connection";
+      } else if (error.message.includes("Service is starting up")) {
+        errorMessage +=
+          "The AI service is starting up.\n• Please wait 30-60 seconds\n• Try your request again\n• The service should be ready shortly";
+      } else if (
+        error.message.includes("Failed to fetch") ||
+        error.message.includes("NetworkError")
+      ) {
+        errorMessage +=
+          "Network connection issue.\n• Check your internet connection\n• The server might be temporarily unavailable\n• Try again in a few moments";
+      } else {
+        errorMessage += `Sorry, I couldn't process your request:\n• ${error.message}\n• Please try again in a moment`;
+      }
+
       setMessages((prev) => [
         ...prev,
         {
           id: Date.now() + 1,
           type: "bot",
-          content: `⚠️ **Connection Error**\n\nSorry, I couldn't process your request:\n• ${error.message}\n• Please check your connection\n• Try again in a moment`,
+          content: errorMessage,
           timestamp: new Date().toLocaleTimeString(),
         },
       ]);
@@ -320,78 +368,90 @@ function LandingPage({ onNavigate }) {
 
   // Render tools section with loading and error states
   const renderToolsSection = () => {
-    if (toolsLoading) {
-      return (
-        <div className="bg-black/20 backdrop-blur-lg border-b border-purple-500/10 p-3">
-          <p className="text-sm text-purple-300 mb-2">
-            Loading Available Tools...
-          </p>
-          <div className="flex items-center gap-2">
-            <Loader className="w-4 h-4 animate-spin text-purple-400" />
-            <span className="text-xs text-purple-400">
-              Fetching tools from backend...
-            </span>
-          </div>
-        </div>
-      );
-    }
-
-    if (toolsError) {
-      return (
-        <div className="bg-black/20 backdrop-blur-lg border-b border-purple-500/10 p-3">
-          <p className="text-sm text-purple-300 mb-2">Available Tools:</p>
-          <div className="flex items-center gap-2 mb-2">
-            <AlertCircle className="w-4 h-4 text-amber-400" />
-            <span className="text-xs text-amber-400">
-              Failed to fetch tools from backend (using fallback)
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {availableTools.map((tool, index) => (
-              <span
-                key={index}
-                className="px-2 py-1 bg-amber-500/20 text-amber-200 rounded text-xs font-mono flex items-center gap-1"
-              >
-                {getToolIcon(tool)}
-                {tool}
-              </span>
-            ))}
-          </div>
-        </div>
-      );
-    }
-
     return (
-      <div className="bg-black/20 backdrop-blur-lg border-b border-purple-500/10 p-3">
-        <div className="flex items-center gap-2 mb-2">
-          <p className="text-sm text-purple-300">Available Tools:</p>
-          <button
-            onClick={fetchAvailableTools}
-            className="text-xs text-purple-400 hover:text-purple-300 transition-colors"
-            title="Refresh tools"
-          >
-            🔄
-          </button>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {availableTools.map((tool, index) => (
-            <span
-              key={index}
-              className="px-2 py-1 bg-purple-500/20 text-purple-200 rounded text-xs font-mono flex items-center gap-1"
+      <Collapsible
+        open={isToolsCollapsibleOpen}
+        onOpenChange={setIsToolsCollapsibleOpen}
+        className="bg-black/20 backdrop-blur-lg border-b border-purple-500/10 p-3"
+      >
+        <CollapsibleTrigger asChild>
+          <div className="flex items-center justify-between cursor-pointer py-1">
+            <div className="flex items-center gap-2">
+              <p className="text-sm text-purple-300">Available Tools:</p>
+              {toolsLoading && (
+                <div className="flex items-center gap-2 ml-2">
+                  <Loader className="w-4 h-4 animate-spin text-purple-400" />
+                  <span className="text-xs text-purple-400">Connecting...</span>
+                </div>
+              )}
+              {toolsError && !toolsLoading && (
+                <div className="flex items-center gap-2 ml-2">
+                  <AlertCircle className="w-4 h-4 text-amber-400" />
+                  <span className="text-xs text-amber-400">
+                    Error (using fallback)
+                  </span>
+                </div>
+              )}
+            </div>
+            <ChevronDown
+              className={`w-5 h-5 text-purple-300 transition-transform duration-200 ${
+                isToolsCollapsibleOpen ? "rotate-180" : ""
+              }`}
+            />
+          </div>
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <div className="pt-2">
+            {toolsLoading ? (
+              <p className="text-xs text-purple-400">
+                Loading tools from backend...
+              </p>
+            ) : toolsError ? (
+              <div className="flex flex-wrap gap-2">
+                {availableTools.map((tool, index) => (
+                  <span
+                    key={index}
+                    className="px-2 py-1 bg-amber-500/20 text-amber-200 rounded text-xs font-mono flex items-center gap-1"
+                  >
+                    {getToolIcon(tool)}
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-wrap gap-2">
+                {availableTools.map((tool, index) => (
+                  <span
+                    key={index}
+                    className="px-2 py-1 bg-purple-500/20 text-purple-200 rounded text-xs font-mono flex items-center gap-1"
+                  >
+                    {getToolIcon(tool)}
+                    {tool}
+                  </span>
+                ))}
+              </div>
+            )}
+            <button
+              onClick={fetchAvailableTools}
+              className="text-xs text-purple-400 hover:text-purple-300 transition-colors mt-2"
+              title="Refresh tools"
             >
-              {getToolIcon(tool)}
-              {tool}
-            </span>
-          ))}
-        </div>
-      </div>
+              🔄 Refresh Tools
+            </button>
+          </div>
+        </CollapsibleContent>
+      </Collapsible>
     );
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4 font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4 sm:p-2 md:p-4 font-sans">
+      {" "}
+      {/* Adjusted padding */}
       {/* Main Chat Container Card */}
-      <Card className="w-[80%] max-w-6xl h-[90vh] flex flex-col rounded-xl overflow-hidden bg-black/40 backdrop-blur-xl border border-purple-500/20 shadow-lg shadow-purple-900/50">
+      <Card className="w-full sm:w-[95%] md:w-[85%] lg:w-[80%] xl:w-[75%] max-w-6xl h-[90vh] flex flex-col rounded-xl overflow-hidden bg-black/40 backdrop-blur-xl border border-purple-500/20 shadow-lg shadow-purple-900/50">
+        {" "}
+        {/* Adjusted width */}
         {/* Header - Now part of the main Card */}
         <CardHeader className="bg-black/30 border-b border-purple-500/20 p-4 flex flex-row items-center justify-between">
           <div className="flex items-center gap-3">
@@ -408,13 +468,11 @@ function LandingPage({ onNavigate }) {
             </div>
           </div>
           <div className="px-3 py-1 bg-green-500/20 text-green-400 rounded-full text-sm font-medium">
-            Online
+            {window.location.hostname === "localhost" ? "Local" : "Online"}
           </div>
         </CardHeader>
-
         {/* Available Tools - Dynamic loading */}
         {renderToolsSection()}
-
         {/* Messages */}
         <CardContent className="flex-1 overflow-y-auto p-4 space-y-6">
           {messages.map((message) => (
@@ -511,7 +569,6 @@ function LandingPage({ onNavigate }) {
 
           <div ref={messagesEndRef} />
         </CardContent>
-
         {/* Input */}
         <div className="bg-black/30 backdrop-blur-xl border-t border-purple-500/20 p-4">
           <div className="flex gap-3">
@@ -550,6 +607,9 @@ function LandingPage({ onNavigate }) {
 
           <div className="mt-2 text-xs text-purple-400 text-center">
             Powered by Gemini LLM • Firecrawl Tools • Real-time Web Intelligence
+            {window.location.hostname !== "localhost" && (
+              <span className="ml-2">• Deployed on Render</span>
+            )}
           </div>
         </div>
       </Card>
