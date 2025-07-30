@@ -59,7 +59,7 @@ function LandingPage({ onNavigate }) {
       return "http://localhost:5000";
     }
     // Production backend URL
-    return "https://simple-agent-backend.onrender.com";
+    return "https://simple-agent-backend-918169486800.us-central1.run.app";
   };
 
   const BACKEND_URL = getBackendURL();
@@ -191,114 +191,98 @@ function LandingPage({ onNavigate }) {
 
   // Handles the submission of a user message and communicates with the backend
   const handleSubmit = async () => {
-    if (!inputValue.trim() || isLoading) return;
+  if (!inputValue.trim() || isLoading) return;
 
-    const userMessage = {
-      id: Date.now(),
-      type: "user",
-      content: inputValue,
+  const userMessage = {
+    id: Date.now(),
+    type: "user",
+    content: inputValue,
+    timestamp: new Date().toLocaleTimeString(),
+  };
+
+  setMessages((prev) => [...prev, userMessage]);
+  setInputValue("");
+  setIsLoading(true);
+
+  try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 180000); // 3 minute timeout
+
+    const response = await fetch(`${BACKEND_URL}/query`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        input_text: userMessage.content,
+      }),
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      if (response.status === 503) {
+        throw new Error("Service is starting up. Please wait a moment and try again.");
+      } else if (response.status >= 500) {
+        throw new Error("Server error. Please try again later.");
+      } else if (response.status === 404) {
+        throw new Error("Service not found. Please check the backend URL.");
+      } else {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+    }
+
+    const data = await response.json();
+
+    const botMessageContent = data.response || "(No direct textual response)";
+
+    // Format AI response as in your existing function
+    const formattedContent = formatAIResponse(botMessageContent);
+
+    const botResponse = {
+      id: Date.now() + 1,
+      type: "bot",
+      content: formattedContent,
       timestamp: new Date().toLocaleTimeString(),
+      toolsUsed: [],  // Your backend currently does not return tool calls; update if backend supports it
     };
 
-    setMessages((prev) => [...prev, userMessage]); // Add user message immediately
-    setInputValue("");
-    setIsLoading(true);
+    setMessages((prev) => [...prev, botResponse]);
+  } catch (error) {
+    console.error("Error sending message to backend:", error);
 
-    try {
-      // Prepare chat history to send to backend
-      const historyToSend = messages.map((msg) => ({
-        type: msg.type,
-        content: msg.content,
-      }));
+    let errorMessage = "⚠️ **Connection Error**\n\n";
 
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 180000); // 3 minute timeout
+    if (error.name === "AbortError") {
+      errorMessage +=
+        "Request timed out. The server might be busy.\n• Try a simpler question\n• Wait a moment and try again\n• Check your internet connection";
+    } else if (error.message.includes("Service is starting up")) {
+      errorMessage +=
+        "The AI service is starting up.\n• Please wait 30-60 seconds\n• Try your request again\n• The service should be ready shortly";
+    } else if (
+      error.message.includes("Failed to fetch") ||
+      error.message.includes("NetworkError")
+    ) {
+      errorMessage +=
+        "Network connection issue.\n• Check your internet connection\n• The server might be temporarily unavailable\n• Try again in a few moments";
+    } else {
+      errorMessage += `Sorry, I couldn't process your request:\n• ${error.message}\n• Please try again in a moment`;
+    }
 
-      const response = await fetch(`${BACKEND_URL}/chat`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: userMessage.content,
-          history: historyToSend,
-        }),
-        signal: controller.signal,
-      });
-
-      clearTimeout(timeoutId);
-
-      if (!response.ok) {
-        // Handle different HTTP error codes
-        if (response.status === 503) {
-          throw new Error(
-            "Service is starting up. Please wait a moment and try again."
-          );
-        } else if (response.status >= 500) {
-          throw new Error("Server error. Please try again later.");
-        } else if (response.status === 404) {
-          throw new Error("Service not found. Please check the backend URL.");
-        } else {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-      }
-
-      const data = await response.json();
-
-      let botMessageContent = data.ai_message || "(No direct textual response)";
-      let toolsUsedByBot = [];
-
-      // Process tool_calls and tool_outputs if present
-      if (data.tool_calls && data.tool_calls.length > 0) {
-        toolsUsedByBot = data.tool_calls.map((tc) => tc.name);
-      }
-
-      // Format the AI response for better readability
-      const formattedContent = formatAIResponse(botMessageContent);
-
-      const botResponse = {
+    setMessages((prev) => [
+      ...prev,
+      {
         id: Date.now() + 1,
         type: "bot",
-        content: formattedContent,
+        content: errorMessage,
         timestamp: new Date().toLocaleTimeString(),
-        toolsUsed: toolsUsedByBot,
-      };
-
-      setMessages((prev) => [...prev, botResponse]);
-    } catch (error) {
-      console.error("Error sending message to backend:", error);
-
-      let errorMessage = "⚠️ **Connection Error**\n\n";
-
-      if (error.name === "AbortError") {
-        errorMessage +=
-          "Request timed out. The server might be busy.\n• Try a simpler question\n• Wait a moment and try again\n• Check your internet connection";
-      } else if (error.message.includes("Service is starting up")) {
-        errorMessage +=
-          "The AI service is starting up.\n• Please wait 30-60 seconds\n• Try your request again\n• The service should be ready shortly";
-      } else if (
-        error.message.includes("Failed to fetch") ||
-        error.message.includes("NetworkError")
-      ) {
-        errorMessage +=
-          "Network connection issue.\n• Check your internet connection\n• The server might be temporarily unavailable\n• Try again in a few moments";
-      } else {
-        errorMessage += `Sorry, I couldn't process your request:\n• ${error.message}\n• Please try again in a moment`;
-      }
-
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Date.now() + 1,
-          type: "bot",
-          content: errorMessage,
-          timestamp: new Date().toLocaleTimeString(),
-        },
-      ]);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+      },
+    ]);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   // Returns the appropriate Lucide icon for a given tool
   const getToolIcon = (tool) => {
