@@ -13,4 +13,5 @@ dependencies = [
     "python-dotenv>=1.1.0",
     "uvicorn>=0.34.3",
     "anyio",
+    "fastapi>=0.116.1",
 ]
