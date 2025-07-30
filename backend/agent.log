@@ -723,3 +723,11 @@
 2025-06-30 18:31:53,652 - INFO - Tool used: firecrawl_deep_research
 2025-06-30 18:31:53,653 - INFO - Tool output from firecrawl_deep_research: 55 characters
 2025-06-30 19:54:00,992 - INFO - Shutting down FastAPI server...
+2025-07-30 16:45:43,624 - INFO - Model initialized successfully
+2025-07-30 16:45:45,685 - INFO - MCP client initialized successfully
+2025-07-30 16:45:47,364 - INFO - MCP session initialized successfully
+2025-07-30 16:45:47,368 - INFO - Loaded 8 tools successfully
+2025-07-30 16:45:47,378 - INFO - Agent created successfully
+2025-07-30 16:46:02,209 - INFO - Starting cleanup process...
+2025-07-30 16:46:02,210 - INFO - Session closed
+2025-07-30 16:46:04,214 - INFO - MCP client connections closed
