@@ -753,3 +753,628 @@
 2025-07-30 18:27:18,951 - INFO - Session closed
 2025-07-30 18:27:20,955 - INFO - MCP client connections closed
 2025-07-30 18:27:21,063 - INFO - Cleanup completed.
+2025-07-30 19:49:11,168 - INFO - Initializing FirecrawlAgent on startup...
+2025-07-30 19:49:11,205 - INFO - Model initialized successfully
+2025-07-30 19:49:11,356 - INFO - MCP client initialized successfully
+2025-07-30 19:49:12,780 - INFO - MCP session initialized successfully
+2025-07-30 19:49:12,783 - INFO - Loaded 8 tools successfully
+2025-07-30 19:49:12,795 - INFO - Agent created successfully
+2025-07-30 19:49:12,795 - INFO - FirecrawlAgent initialized successfully.
+2025-07-30 19:50:07,467 - INFO - Cleaning up FirecrawlAgent on shutdown...
+2025-07-30 19:50:07,468 - INFO - Starting cleanup process...
+2025-07-30 19:50:07,471 - INFO - Session closed
+2025-07-30 19:50:09,480 - INFO - MCP client connections closed
+2025-07-30 19:50:09,585 - INFO - Cleanup completed.
+2025-07-30 19:50:15,435 - INFO - Initializing FirecrawlAgent on startup...
+2025-07-30 19:50:15,449 - INFO - Model initialized successfully
+2025-07-30 19:50:15,586 - INFO - MCP client initialized successfully
+2025-07-30 19:50:16,578 - INFO - MCP session initialized successfully
+2025-07-30 19:50:16,581 - INFO - Loaded 8 tools successfully
+2025-07-30 19:50:16,590 - INFO - Agent created successfully
+2025-07-30 19:50:16,591 - INFO - FirecrawlAgent initialized successfully.
+2025-07-30 20:15:49,448 - INFO - Initializing FirecrawlAgent on startup...
+2025-07-30 20:15:49,466 - INFO - Model initialized successfully
+2025-07-30 20:15:49,588 - INFO - MCP client initialized successfully
+2025-07-30 20:15:50,867 - INFO - MCP session initialized successfully
+2025-07-30 20:15:50,871 - INFO - Loaded 8 tools successfully
+2025-07-30 20:15:50,882 - INFO - Agent created successfully
+2025-07-30 20:15:50,883 - INFO - FirecrawlAgent initialized successfully.
+2025-07-30 20:20:09,122 - INFO - Cleaning up FirecrawlAgent on shutdown...
+2025-07-30 20:20:09,123 - INFO - Starting cleanup process...
+2025-07-30 20:20:09,126 - INFO - Session closed
+2025-07-30 20:20:11,137 - INFO - MCP client connections closed
+2025-07-30 20:20:11,257 - INFO - Cleanup completed.
+2025-07-30 20:29:58,457 - INFO - Initializing FirecrawlAgent on startup...
+2025-07-30 20:29:58,472 - INFO - Model initialized successfully
+2025-07-30 20:29:58,491 - ERROR - Agent initialization error: Failed to initialize MCP client: 
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 72, in create_windows_process
+    process = await anyio.open_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 103, in initialize
+    read, write = await self.stdio_context.__aenter__()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 115, in stdio_client
+    process = await _create_platform_compatible_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 224, in _create_platform_compatible_process
+    process = await create_windows_process(command, args, env, errlog, cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 85, in create_windows_process
+    process = await anyio.open_process([command, *args], env=env, stderr=errlog, cwd=cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 187, in startup_event
+    await agent_instance.initialize()
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 106, in initialize
+    raise AgentError(f"Failed to initialize MCP client: {e}")
+main.AgentError: Failed to initialize MCP client: 
+
+2025-07-30 20:33:12,187 - INFO - Cleaning up FirecrawlAgent on shutdown...
+2025-07-30 20:33:12,187 - INFO - Cleanup completed.
+2025-07-30 20:33:16,413 - INFO - Initializing FirecrawlAgent on startup...
+2025-07-30 20:33:16,427 - INFO - Model initialized successfully
+2025-07-30 20:33:16,439 - ERROR - Agent initialization error: Failed to initialize MCP client: 
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 72, in create_windows_process
+    process = await anyio.open_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 104, in initialize
+    read, write = await self.stdio_context.__aenter__()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 115, in stdio_client
+    process = await _create_platform_compatible_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 224, in _create_platform_compatible_process
+    process = await create_windows_process(command, args, env, errlog, cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 85, in create_windows_process
+    process = await anyio.open_process([command, *args], env=env, stderr=errlog, cwd=cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 188, in startup_event
+    await agent_instance.initialize()
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 107, in initialize
+    raise AgentError(f"Failed to initialize MCP client: {e}")
+main.AgentError: Failed to initialize MCP client: 
+
+2025-07-30 20:33:18,347 - INFO - Cleaning up FirecrawlAgent on shutdown...
+2025-07-30 20:33:18,347 - INFO - Cleanup completed.
+2025-07-30 20:33:22,140 - INFO - Initializing FirecrawlAgent on startup...
+2025-07-30 20:33:22,153 - INFO - Model initialized successfully
+2025-07-30 20:33:22,166 - ERROR - Agent initialization error: Failed to initialize MCP client: 
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 72, in create_windows_process
+    process = await anyio.open_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 104, in initialize
+    read, write = await self.stdio_context.__aenter__()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 115, in stdio_client
+    process = await _create_platform_compatible_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 224, in _create_platform_compatible_process
+    process = await create_windows_process(command, args, env, errlog, cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 85, in create_windows_process
+    process = await anyio.open_process([command, *args], env=env, stderr=errlog, cwd=cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 188, in startup_event
+    await agent_instance.initialize()
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 107, in initialize
+    raise AgentError(f"Failed to initialize MCP client: {e}")
+main.AgentError: Failed to initialize MCP client: 
+
+2025-07-30 20:35:36,489 - INFO - Cleaning up FirecrawlAgent on shutdown...
+2025-07-30 20:35:36,490 - INFO - Cleanup completed.
+2025-07-30 20:35:40,373 - INFO - Initializing FirecrawlAgent on startup...
+2025-07-30 20:35:40,388 - INFO - Model initialized successfully
+2025-07-30 20:35:40,400 - ERROR - Error during initialize: Failed to initialize MCP client: 
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 72, in create_windows_process
+    process = await anyio.open_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 102, in initialize
+    read, write = await self.stdio_context.__aenter__()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 115, in stdio_client
+    process = await _create_platform_compatible_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 224, in _create_platform_compatible_process
+    process = await create_windows_process(command, args, env, errlog, cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 85, in create_windows_process
+    process = await anyio.open_process([command, *args], env=env, stderr=errlog, cwd=cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 105, in initialize
+    raise AgentError(f"Failed to initialize MCP client: {e}")
+main.AgentError: Failed to initialize MCP client: 
+
+2025-07-30 20:35:40,401 - ERROR - Agent initialization error: Failed to initialize MCP client: 
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 72, in create_windows_process
+    process = await anyio.open_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 102, in initialize
+    read, write = await self.stdio_context.__aenter__()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 115, in stdio_client
+    process = await _create_platform_compatible_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 224, in _create_platform_compatible_process
+    process = await create_windows_process(command, args, env, errlog, cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 85, in create_windows_process
+    process = await anyio.open_process([command, *args], env=env, stderr=errlog, cwd=cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 185, in startup_event
+    await agent_instance.initialize()
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 105, in initialize
+    raise AgentError(f"Failed to initialize MCP client: {e}")
+main.AgentError: Failed to initialize MCP client: 
+
+2025-07-30 20:35:41,853 - INFO - Cleaning up FirecrawlAgent on shutdown...
+2025-07-30 20:35:41,853 - INFO - Cleanup completed.
+2025-07-30 20:35:52,908 - INFO - Initializing FirecrawlAgent on startup...
+2025-07-30 20:35:52,922 - INFO - Model initialized successfully
+2025-07-30 20:35:52,935 - ERROR - Error during initialize: Failed to initialize MCP client: 
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 72, in create_windows_process
+    process = await anyio.open_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 102, in initialize
+    read, write = await self.stdio_context.__aenter__()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 115, in stdio_client
+    process = await _create_platform_compatible_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 224, in _create_platform_compatible_process
+    process = await create_windows_process(command, args, env, errlog, cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 85, in create_windows_process
+    process = await anyio.open_process([command, *args], env=env, stderr=errlog, cwd=cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 105, in initialize
+    raise AgentError(f"Failed to initialize MCP client: {e}")
+main.AgentError: Failed to initialize MCP client: 
+
+2025-07-30 20:35:52,937 - ERROR - Agent initialization error: Failed to initialize MCP client: 
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 72, in create_windows_process
+    process = await anyio.open_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 102, in initialize
+    read, write = await self.stdio_context.__aenter__()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 115, in stdio_client
+    process = await _create_platform_compatible_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 224, in _create_platform_compatible_process
+    process = await create_windows_process(command, args, env, errlog, cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 85, in create_windows_process
+    process = await anyio.open_process([command, *args], env=env, stderr=errlog, cwd=cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 185, in startup_event
+    await agent_instance.initialize()
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 105, in initialize
+    raise AgentError(f"Failed to initialize MCP client: {e}")
+main.AgentError: Failed to initialize MCP client: 
+
+2025-07-30 20:42:38,611 - INFO - Cleaning up FirecrawlAgent on shutdown...
+2025-07-30 20:42:38,611 - INFO - Cleanup completed.
+2025-07-30 20:42:42,329 - INFO - Initializing FirecrawlAgent on startup...
+2025-07-30 20:42:42,342 - INFO - Model initialized successfully
+2025-07-30 20:42:42,355 - ERROR - Error during initialize: Failed to initialize MCP client: 
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 72, in create_windows_process
+    process = await anyio.open_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 102, in initialize
+    read, write = await self.stdio_context.__aenter__()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 115, in stdio_client
+    process = await _create_platform_compatible_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 224, in _create_platform_compatible_process
+    process = await create_windows_process(command, args, env, errlog, cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 85, in create_windows_process
+    process = await anyio.open_process([command, *args], env=env, stderr=errlog, cwd=cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 105, in initialize
+    raise AgentError(f"Failed to initialize MCP client: {e}")
+main.AgentError: Failed to initialize MCP client: 
+
+2025-07-30 20:42:42,356 - ERROR - Agent initialization error: Failed to initialize MCP client: 
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 72, in create_windows_process
+    process = await anyio.open_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 102, in initialize
+    read, write = await self.stdio_context.__aenter__()
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\contextlib.py", line 210, in __aenter__
+    return await anext(self.gen)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 115, in stdio_client
+    process = await _create_platform_compatible_process(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\__init__.py", line 224, in _create_platform_compatible_process
+    process = await create_windows_process(command, args, env, errlog, cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\mcp\client\stdio\win32.py", line 85, in create_windows_process
+    process = await anyio.open_process([command, *args], env=env, stderr=errlog, cwd=cwd)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_core\_subprocesses.py", line 190, in open_process
+    return await get_async_backend().open_process(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\.venv\Lib\site-packages\anyio\_backends\_asyncio.py", line 2561, in open_process
+    process = await asyncio.create_subprocess_exec(
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\subprocess.py", line 224, in create_subprocess_exec
+    transport, protocol = await loop.subprocess_exec(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 1756, in subprocess_exec
+    transport = await self._make_subprocess_transport(
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Granth Gupta\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\base_events.py", line 528, in _make_subprocess_transport
+    raise NotImplementedError
+NotImplementedError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 185, in startup_event
+    await agent_instance.initialize()
+  File "C:\Users\Granth Gupta\Desktop\Published Agent\SimpleAgent\backend\main.py", line 105, in initialize
+    raise AgentError(f"Failed to initialize MCP client: {e}")
+main.AgentError: Failed to initialize MCP client: 
+
+2025-07-30 20:48:20,500 - INFO - Cleaning up FirecrawlAgent on shutdown...
+2025-07-30 20:48:20,500 - INFO - Cleanup completed.

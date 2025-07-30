@@ -1,7 +1,7 @@
 import asyncio
+import traceback
 import os
 import logging
-import signal
 import sys
 import warnings
 from typing import Optional
@@ -11,9 +11,10 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
-# Suppress asyncio resource warnings on Windows
+# Set Windows Proactor event loop, needed for subprocess asyncio on Windows
 if sys.platform == "win32":
-    warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed transport")
+    asyncio.set_event_loop_policy(asyncio.WindowsProactorEventLoopPolicy())
+    # warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed transport")
 
 from langchain_core.messages import AIMessage, ToolMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
@@ -37,16 +38,18 @@ load_dotenv()
 
 app = FastAPI(title="FirecrawlAgent API")
 
+# CORS middleware with specific allowed origins (adjust as needed)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "https://simple-agent-frontend-918169486800.us-central1.run.app",
-        "http://127.0.0.1:5000"
-    ],  # restrict to your frontend URL
+        "http://127.0.0.1:5000",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 class AgentError(Exception):
     """Custom exception for agent-related errors"""
@@ -74,20 +77,18 @@ class FirecrawlAgent:
         self._initialized = False
 
     async def initialize(self):
-        """Initialize the agent with proper error handling"""
+        """Initialize the agent with robust error handling."""
         try:
             # Validate environment variables
             if not os.getenv("FIRECRAWL_API_KEY"):
                 raise ConfigurationError("FIRECRAWL_API_KEY environment variable is required")
 
-            # Initialize model with error handling
             try:
                 self.model = ChatGoogleGenerativeAI(model="gemini-2.0-flash", temperature=0.1)
                 logger.info("Model initialized successfully")
             except Exception as e:
                 raise ConfigurationError(f"Failed to initialize Google Generative AI model: {e}")
 
-            # Setup server parameters
             server_params = StdioServerParameters(
                 command="npx",
                 env={
@@ -96,7 +97,6 @@ class FirecrawlAgent:
                 args=["firecrawl-mcp"],
             )
 
-            # Initialize MCP client using proper async context manager
             try:
                 self.stdio_context = stdio_client(server_params)
                 read, write = await self.stdio_context.__aenter__()
@@ -104,7 +104,6 @@ class FirecrawlAgent:
             except Exception as e:
                 raise AgentError(f"Failed to initialize MCP client: {e}")
 
-            # Initialize session
             try:
                 self.session = ClientSession(read, write)
                 await self.session.__aenter__()
@@ -113,14 +112,12 @@ class FirecrawlAgent:
             except Exception as e:
                 raise AgentError(f"Failed to initialize MCP session: {e}")
 
-            # Load tools
             try:
                 self.tools = await load_mcp_tools(self.session)
                 logger.info(f"Loaded {len(self.tools)} tools successfully")
             except Exception as e:
                 raise ToolError(f"Failed to load MCP tools: {e}")
 
-            # Create agent
             try:
                 self.agent = create_react_agent(self.model, self.tools)
                 logger.info("Agent created successfully")
@@ -130,37 +127,38 @@ class FirecrawlAgent:
             self._initialized = True
 
         except Exception as e:
-            await self.cleanup()
+            logger.error(f"Error during initialize: {e}\n{traceback.format_exc()}")
+            try:
+                await self.cleanup()
+            except Exception as cleanup_ex:
+                logger.error(f"Error during cleanup in initialize: {cleanup_ex}\n{traceback.format_exc()}")
             raise
 
     async def cleanup(self):
-        """Properly cleanup resources"""
+        """Properly cleanup resources."""
         if not self._initialized:
             return
 
         logger.info("Starting cleanup process...")
 
-        # Clean up session first
         if self.session:
             try:
                 await self.session.__aexit__(None, None, None)
                 logger.info("Session closed")
             except Exception as e:
-                logger.warning(f"Error closing session: {e}")
+                logger.warning(f"Error closing session: {e}\n{traceback.format_exc()}")
             finally:
                 self.session = None
 
-        # Clean up stdio context
         if self.stdio_context:
             try:
                 await self.stdio_context.__aexit__(None, None, None)
                 logger.info("MCP client connections closed")
             except Exception as e:
-                logger.warning(f"Error closing MCP client: {e}")
+                logger.warning(f"Error closing MCP client: {e}\n{traceback.format_exc()}")
             finally:
                 self.stdio_context = None
 
-        # Small delay to allow subprocess cleanup
         try:
             await asyncio.sleep(0.1)
         except asyncio.CancelledError:
@@ -174,7 +172,7 @@ class QueryRequest(BaseModel):
     input_text: str
 
 
-# Global agent instance
+# Global single instance of agent
 agent_instance: Optional[FirecrawlAgent] = None
 
 
@@ -187,9 +185,9 @@ async def startup_event():
         await agent_instance.initialize()
         logger.info("FirecrawlAgent initialized successfully.")
     except (ConfigurationError, AgentError, ToolError) as e:
-        logger.error(f"Agent initialization error: {e}")
+        logger.error(f"Agent initialization error: {e}\n{traceback.format_exc()}")
     except Exception as e:
-        logger.error(f"Unexpected error during agent initialization: {e}")
+        logger.error(f"Unexpected error during agent initialization: {e}\n{traceback.format_exc()}")
 
 
 @app.on_event("shutdown")
@@ -203,7 +201,9 @@ async def shutdown_event():
 
 @app.get("/")
 async def read_root():
-    return {"message": "Hello, world!"}
+    status = "ok" if agent_instance and agent_instance._initialized else "not ready"
+    return {"message": "Hello, world!", "agent_status": status}
+
 
 @app.get("/tools")
 async def get_tools():
@@ -213,12 +213,12 @@ async def get_tools():
         raise HTTPException(status_code=503, detail="Agent is not ready")
 
     try:
-        # Return the tool names the agent loaded dynamically
         tools_list = [tool.name for tool in agent_instance.tools] if agent_instance.tools else []
         return {"tools": tools_list}
     except Exception as e:
-        logger.error(f"Error fetching tools list: {e}")
+        logger.error(f"Error fetching tools list: {e}\n{traceback.format_exc()}")
         raise HTTPException(status_code=500, detail="Failed to retrieve tools")
+
 
 @app.post("/query")
 async def query_agent(request: QueryRequest):
@@ -278,7 +278,6 @@ async def query_agent(request: QueryRequest):
         raise HTTPException(status_code=500, detail="Internal server error.")
 
 
-# Optional health check endpoint
 @app.get("/health")
 async def health_check():
     if agent_instance and agent_instance._initialized:
@@ -287,7 +286,6 @@ async def health_check():
         raise HTTPException(status_code=503, detail="Agent is not initialized")
 
 
-# Entry point for local dev/testing
 if __name__ == "__main__":
     import uvicorn
 
